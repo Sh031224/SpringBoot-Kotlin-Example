@@ -2,7 +2,7 @@
 FROM java:8
 
 # Add Author info
-LABEL maintainer="1cktmdgh2@gmail.com"
+LABEL maintainer="yourEmail@example.com"
 
 # Add a volume to /tmp
 VOLUME /tmp
@@ -11,7 +11,7 @@ VOLUME /tmp
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=build/libs/ida-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=build/libs/example-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} app.jar
