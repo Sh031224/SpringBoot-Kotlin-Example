@@ -5,6 +5,7 @@
 
 - Jpa
 - Swagger
+- Thymeleaf
 - Jwt
   - `AccessToken`, `RefreshToken`
   - interceptor
