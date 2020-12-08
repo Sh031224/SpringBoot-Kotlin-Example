@@ -1,0 +1,30 @@
+## mail default settings
+spring.mail.default-encoding=UTF-8
+## mail custom settings
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=user@gmail.com
+spring.mail.password=gmailpassword
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+## db
+spring.datasource.url=jdbc:mariadb://localhost:3306/example
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+
+## key
+jwt.secret.access=user_spring_boot_example_server_io_jwt_secret_setting_access_token
+jwt.secret.refresh=user_spring_boot_example_server_io_jwt_secret_setting_refresh_token
+
+java.encrypt.key=your_encrypt_secret_key
+server.url=http://localhost:8080
+
+
+## thymeleaf
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=HTML5
