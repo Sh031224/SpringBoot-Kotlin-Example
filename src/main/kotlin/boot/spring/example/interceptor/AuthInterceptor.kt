@@ -23,12 +23,14 @@ class AuthInterceptor: HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val token: String = authExtractor.extract(request, "Bearer")
+        
+        if (request.method == "OPTIONS") {
+            // for cors
+            return true
+        }
 
         if (StringUtils.isEmpty(token)) {
             throw HttpClientErrorException(HttpStatus.BAD_REQUEST, "검증 오류.")
-        } else if (request.method == "OPTIONS") {
-            // for cors
-            return true
         }
 
         val user: User? = jwtServiceImpl.validateToken(token)
