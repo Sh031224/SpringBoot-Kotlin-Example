@@ -20,11 +20,13 @@ class OptionalAuthInterceptor: HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val token: String = authExtractor.extract(request, "Bearer")
+        
+        if (request.method == "OPTIONS") {
+            // for cors
+            return true
+        }
 
         if (StringUtils.isEmpty(token)) {
-            return true
-        } else if (request.method == "OPTIONS") {
-            // for cors
             return true
         }
 
