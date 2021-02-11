@@ -1,0 +1,28 @@
+version: "3.2"
+services:
+  database:
+    container_name: database
+    image: mysql
+    volumes:
+      - database-volume:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_HOST=%
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    restart: always
+    ports:
+      - 3306:3306
+
+  application:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/ida?useUnicode=true
+      SPRING_DATASOURCE_USERNAME: username
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+volumes:
+  database-volume:
