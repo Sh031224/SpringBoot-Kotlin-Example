@@ -34,10 +34,8 @@ class JwtServiceImpl: JwtService {
      * @return Token
      */
     override fun createToken(idx: Long, authType: JwtAuth): String {
-        var expiredAt: Date = Date()
-        var secretKey: String? = null
-
-        secretKey = when(authType) {
+        var expiredAt = Date()
+        val secretKey: String? = when(authType) {
             JwtAuth.ACCESS -> {
                 expiredAt = Date(expiredAt.time + DateConstant().MILLISECONDS_FOR_A_HOUR * 1)
                 secretAccessKey
@@ -45,9 +43,6 @@ class JwtServiceImpl: JwtService {
             JwtAuth.REFRESH -> {
                 expiredAt = Date(expiredAt.time + DateConstant().MILLISECONDS_FOR_A_HOUR * 24 * 7)
                 secretRefreshKey
-            }
-            else -> {
-                throw HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류.")
             }
         }
 
@@ -61,6 +56,7 @@ class JwtServiceImpl: JwtService {
         val map: MutableMap<String, Any> = HashMap()
 
         map["idx"] = idx
+        map["authType"] = authType
 
         val builder: JwtBuilder = Jwts.builder().setHeaderParams(headerMap)
                 .setClaims(map)
@@ -84,6 +80,10 @@ class JwtServiceImpl: JwtService {
                     .build()
                     .parseClaimsJws(token)
                     .body
+
+            if (claims["authType"].toString() != "ACCESS") {
+                throw HttpClientErrorException(HttpStatus.UNAUTHORIZED, "토큰 타입이 아님.")
+            }
 
             return userRepo.findByIdx(claims["idx"].toString().toLong())
                     ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND, "유저 없음.")
