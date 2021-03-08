@@ -17,7 +17,7 @@ services:
   application:
     build: .
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/ida?useUnicode=true
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/example?useUnicode=true
       SPRING_DATASOURCE_USERNAME: username
       SPRING_DATASOURCE_PASSWORD: password
     ports:
