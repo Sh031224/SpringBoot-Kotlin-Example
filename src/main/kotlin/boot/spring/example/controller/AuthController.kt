@@ -21,7 +21,6 @@ import javax.validation.Valid
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
 class AuthController {
     @Autowired
     private lateinit var authService: AuthServiceImpl
@@ -39,7 +38,7 @@ class AuthController {
             val accessToken: String = jwtService.createToken(userIdx!!, JwtAuth.ACCESS)
             val refreshToken: String = jwtService.createToken(userIdx, JwtAuth.REFRESH)
             val data: UserLoginRo = UserLoginRo(accessToken, refreshToken)
-            return ResponseData(HttpStatus.OK, "로그인 성공.", data);
+            return ResponseData(HttpStatus.OK, "로그인 성공.", data)
         } catch (e: HttpClientErrorException) {
             throw e
         } catch (e: Exception) {
