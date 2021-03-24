@@ -8,7 +8,7 @@
 - Thymeleaf
 - Jwt
   - `AccessToken`, `RefreshToken`
-  - interceptor
+  - Filter
 - MailSender
   - `gmail`
   - Email verification when signing up
